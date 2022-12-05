@@ -1,0 +1,16 @@
+Package: StatComp22074
+Type: Package
+Title: Linear system solver based on multiple grid method
+Version: 1.0
+Date: 2022-11-25
+Author: 22074
+Maintainer: 22074 <1105084640@qq.com>
+Description: Linear system solver based on multiple grid method and the past homework of 22074.
+License: GPL (>= 2)
+Imports: Rcpp, microbenchmark, knitr, rmarkdown, boot, bootstrap, DAAG, lmtest, mediation,pander,xtable
+LinkingTo: Rcpp
+RoxygenNote: 7.2.2
+Encoding: UTF-8
+VignetteBuilder: knitr
+URL: https://github.com/NangongBei/StatComp22074
+BugReports: https://github.com/NangongBei/StatComp22074/issues

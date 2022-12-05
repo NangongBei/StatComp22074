@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="22074" />
+
+<meta name="date" content="2022-12-05" />
+
+<title>Introduction to StatComp22074</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to StatComp22074</h1>
+<h4 class="author">22074</h4>
+<h4 class="date">2022-12-05</h4>
+
+
+
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p><strong>StatComp22074</strong> is a simple R package, which mainly
+realizes the solution of the linear system <span class="math inline">\(Ax=b\)</span> based on the <strong>Algebraic
+Multigrid (AMG)</strong> method. At the same time, it reproduces several
+iterative algorithms including <strong>Gauss-Seidel</strong> iteration
+method, <strong>Jacobi</strong> iteration method, <strong>Preconditioned
+Conjugate Gradient (PCG)</strong> method and so on. At the same time, it
+realizes the <strong>Coarsening</strong> algorithm based on projection,
+and realizes the comparison between algorithms.</p>
+</div>
+<div id="algebraic-multigrid" class="section level2">
+<h2>Algebraic Multigrid</h2>
+<p>Multigrid method is a kind of idea, it was originally used to solve
+the problem of high and low frequency error in <strong>partial
+differential equations</strong>, and then gradually developed algebraic
+multigrid method can be used to solve the problem of <strong>large-scale
+sparse diagonally dominant linear system</strong>.</p>
+<p>Its design idea is based on the coarse mesh is conducive to reducing
+the low frequency error component, fine mesh can be used to reduce the
+high frequency error component, so through the conversion of different
+thickness and fine mesh, thus achieving the effect of reducing the high
+and low frequency error at the same time.</p>
+<p>The flow of the two-level multigrid model can be summarized as
+follows.</p>
+<div id="two-level-method" class="section level3">
+<h3>Two-level method</h3>
+<ol style="list-style-type: decimal">
+<li><p>Pre-smoothing: Smooth <span class="math inline">\(A^hu^h =
+f^h\)</span> on <span class="math inline">\(\Omega_h\)</span> with some
+steps of a simple iterative scheme. This procedure gives an
+approximation <span class="math inline">\(v^h\)</span>. Compute the
+residual <span class="math inline">\(r^h = f^h −
+A^hv^h\)</span>.</p></li>
+<li><p>Restrict the residual to the coarse grid <span class="math inline">\(\Omega_{2h}\)</span> using the restriction
+operator <span class="math inline">\(I_h^{2h}\)</span> (weighted
+restriction for finite difference methods, canonical restriction for
+finite element methods).</p></li>
+<li><p>Solve the coarse grid equation <span class="math inline">\(A^{2h}e^{2h}= I^{2h}_h (r_h)\)</span> on <span class="math inline">\(\Omega_{2h}\)</span>.</p></li>
+<li><p>Prolongate <span class="math inline">\(e^{2h}\)</span> to <span class="math inline">\(\Omega_h\)</span> using the prolongation operator
+<span class="math inline">\(I^h_{2h}\)</span>.</p></li>
+<li><p>Post smoothing: Update <span class="math inline">\(v^h := v^h +
+I^h_{2h}(e^{2h})\)</span> (and apply smoother to <span class="math inline">\(A^hu^h = f^h\)</span> with the initial guess <span class="math inline">\(v^h\)</span>).</p></li>
+</ol>
+</div>
+<div id="multigrid-method" class="section level3">
+<h3>Multigrid Method</h3>
+<p>But if we assume that the network has <span class="math inline">\(l+1\)</span>levels, in which <span class="math inline">\(l\geq 0\)</span>, the smallest grid layer with
+<span class="math inline">\(h\)</span>as the gap, let <span class="math inline">\(l =2^l\)</span>, then the flow of Multigrid Method
+can be summarized as follows.</p>
+<ol style="list-style-type: decimal">
+<li><p>Apply the smoother <span class="math inline">\(\nu_1\)</span>
+times to <span class="math inline">\(A^hu^h = f^h\)</span> with the
+initial guess <span class="math inline">\(v^h\)</span>. The results is
+denoted by <span class="math inline">\(v_h\)</span>.</p></li>
+<li><p>Compute <span class="math inline">\(f^{2h} = I_h^{2h}r^h =
+I_h^{2h}( f^h − A^hv^h)\)</span>.</p></li>
+</ol>
+<p><span class="math inline">\(\qquad\)</span> a. Apply the smoother
+<span class="math inline">\(\nu_1\)</span> times to <span class="math inline">\(A^{2h}u^{2h} = f^{2h}\)</span> with the initial
+guess <span class="math inline">\(v^{2h}= 0\)</span>. Denote the result
+by <span class="math inline">\(v^{2h}\)</span>.</p>
+<p><span class="math inline">\(\qquad\)</span> b. Compute <span class="math inline">\(f^{4h} = I_{2h}^{4h}r^{2h} = I_{2h}^{4h}( f^{2h} −
+A^{2h}v^{2h})\)</span>.</p>
+<p><span class="math inline">\(\qquad\)</span> c. ……</p>
+<p><span class="math inline">\(\qquad\)</span> <span class="math inline">\(\qquad\)</span> 1° Solve <span class="math inline">\(A^{Lh}u^{Lh} = f^{Lh}\)</span>.</p>
+<p><span class="math inline">\(\qquad\)</span> d. ……</p>
+<p><span class="math inline">\(\qquad\)</span> e. Correct <span class="math inline">\(v^{2h} := v^{2h} + I^{2h}_{4h}v^{4h}\)</span>.</p>
+<p><span class="math inline">\(\qquad\)</span> f. Apply smoother <span class="math inline">\(\nu_2\)</span> times to <span class="math inline">\(A^{2h}u^{2h} = f^{2h}\)</span> with the initial
+guess <span class="math inline">\(v^{2h}\)</span>.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Correct <span class="math inline">\(v^h := v^h +
+I_{2h}^hv^{2h}\)</span>.</p></li>
+<li><p>Apply smoother <span class="math inline">\(\nu_2\)</span> times
+to <span class="math inline">\(A^{h}u^{h} = f^{h}\)</span> with the
+initial guess <span class="math inline">\(v^{h}\)</span>.</p></li>
+</ol>
+<p>Therefore, the basic framework of multigrid method can be written.
+First of all, before the actual solution, the matrix change of each
+layer can be established.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Multigrid_Setup <span class="ot">&lt;-</span> <span class="cf">function</span>(A,<span class="at">layer=</span><span class="dv">0</span>,<span class="at">CoarsenType=</span><span class="st">&#39;Projection&#39;</span>,<span class="at">InterpType=</span><span class="st">&#39;Projection&#39;</span>,<span class="at">pri=</span><span class="cn">FALSE</span>){</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  Ah <span class="ot">&lt;-</span> <span class="fu">list</span>(A)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  Qh <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  dimension_A <span class="ot">&lt;-</span> <span class="fu">dim</span>(A)[<span class="dv">1</span>]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  nnz <span class="ot">&lt;-</span> <span class="fu">sum</span>(A<span class="sc">!=</span><span class="dv">0</span>) <span class="co"># count non-zero number</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  dense <span class="ot">&lt;-</span> <span class="fu">c</span>(nnz<span class="sc">/</span>(dimension_A<span class="sc">^</span><span class="dv">2</span>)) <span class="co"># calculate dense of matrix</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  q <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="fu">floor</span>((<span class="dv">1</span> <span class="sc">-</span> dense)<span class="sc">*</span><span class="dv">5</span>),<span class="dv">1</span>) <span class="co"># Adjust coarsening degree according to dense</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set up A</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span>(q <span class="sc">&gt;</span> <span class="dv">1</span>){</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    Q <span class="ot">&lt;-</span> <span class="fu">restriction</span>(Ah[[i]],<span class="at">n=</span>q,<span class="at">CoarsenType=</span>CoarsenType)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    Qh <span class="ot">&lt;-</span> <span class="fu">c</span>(Qh,<span class="fu">list</span>(Q))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    Ah <span class="ot">&lt;-</span> <span class="fu">c</span>(Ah,<span class="fu">list</span>(Q<span class="sc">%*%</span>Ah[[i]]<span class="sc">%*%</span><span class="fu">t</span>(Q)))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    dimension_A <span class="ot">&lt;-</span> <span class="fu">c</span>(dimension_A,<span class="fu">dim</span>(Ah[[i<span class="sc">+</span><span class="dv">1</span>]])[<span class="dv">1</span>])</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    nnz <span class="ot">&lt;-</span> <span class="fu">c</span>(nnz,<span class="fu">sum</span>(Ah[[i<span class="sc">+</span><span class="dv">1</span>]]<span class="sc">!=</span><span class="dv">0</span>))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    dense <span class="ot">&lt;-</span> <span class="fu">c</span>(dense,nnz[i<span class="sc">+</span><span class="dv">1</span>]<span class="sc">/</span>(dimension_A[i<span class="sc">+</span><span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(i <span class="sc">==</span> layer){</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    q <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="fu">floor</span>((<span class="dv">1</span> <span class="sc">-</span> dense[i])<span class="sc">*</span><span class="dv">10</span>),<span class="dv">1</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Print specific details of each layer change</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(pri){</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    pridata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">dim_of_A=</span>dimension_A,<span class="at">nnz=</span>nnz,<span class="at">dense=</span>dense,<span class="at">layer=</span><span class="dv">1</span><span class="sc">:</span>i<span class="dv">-1</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(pridata)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">Ah=</span>Ah,<span class="at">Qh=</span>Qh,<span class="at">nnz=</span>nnz,<span class="at">dense=</span>dense,<span class="at">layer=</span>i))</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Then, according to the grid changes, the corresponding iterative
+algorithm can be written.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-cycle</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Multigrid_iter <span class="ot">&lt;-</span> <span class="cf">function</span>(Ah,b,Qh,<span class="at">x0=</span><span class="dv">0</span>,<span class="at">presmooth=</span><span class="st">&#39;Gauss-Seidel&#39;</span>,<span class="at">v1=</span><span class="dv">2</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">postsmooth=</span><span class="st">&#39;Gauss-Seidel&#39;</span>,<span class="at">v2=</span><span class="dv">2</span>,<span class="at">solver=</span><span class="st">&#39;exact&#39;</span>){</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  fh <span class="ot">&lt;-</span> <span class="fu">list</span>(b)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  vh <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  layer <span class="ot">&lt;-</span> <span class="fu">length</span>(Qh)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Coarsening</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>layer){</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">Smoother</span>(Ah[[i]],fh[[i]],x0,<span class="at">N=</span>v1,<span class="at">SmoothMethod=</span>presmooth)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    vh <span class="ot">&lt;-</span> <span class="fu">c</span>(vh,<span class="fu">list</span>(x<span class="sc">$</span>x))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> Qh[[i]]<span class="sc">%*%</span>(fh[[i]] <span class="sc">-</span> Ah[[i]] <span class="sc">%*%</span> vh[[i]])</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    fh <span class="ot">&lt;-</span> <span class="fu">c</span>(fh,<span class="fu">list</span>(f))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    x0 <span class="ot">&lt;-</span> <span class="cf">if</span>(<span class="fu">length</span>(x0)<span class="sc">&gt;</span><span class="dv">1</span>) <span class="fu">array</span>(Qh[[i]]<span class="sc">%*%</span>x0) <span class="cf">else</span> x0</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># solver</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  layer_vh <span class="ot">&lt;-</span> <span class="fu">Smoother</span>(Ah[[layer<span class="sc">+</span><span class="dv">1</span>]],fh[[layer<span class="sc">+</span><span class="dv">1</span>]],<span class="at">SmoothMethod=</span>solver)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  vh <span class="ot">&lt;-</span> <span class="fu">c</span>(vh,<span class="fu">list</span>(layer_vh<span class="sc">$</span>x))</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  vsh <span class="ot">&lt;-</span> vh</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># interpolation</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> layer<span class="sc">:</span><span class="dv">1</span>){</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> vh[[i]] <span class="sc">+</span> <span class="fu">array</span>(<span class="fu">t</span>(Qh[[i]])<span class="sc">%*%</span>vsh[[i<span class="sc">+</span><span class="dv">1</span>]])</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">Smoother</span>(Ah[[i]],fh[[i]],f,<span class="at">N=</span>v2,<span class="at">SmoothMethod=</span>postsmooth)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    vsh[[i]] <span class="ot">&lt;-</span> x<span class="sc">$</span>x</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">x=</span>vsh[[<span class="dv">1</span>]],<span class="at">error=</span><span class="fu">norm</span>(Ah[[<span class="dv">1</span>]]<span class="sc">%*%</span>vsh[[<span class="dv">1</span>]]<span class="sc">-</span>b)<span class="sc">/</span><span class="fu">norm</span>(b)))</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Meanwhile, the overall solution process can be written as
+follows.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Multigrid_Solve <span class="ot">&lt;-</span> <span class="cf">function</span>(Ah,b,Qh,<span class="at">x0=</span><span class="dv">0</span>,<span class="at">presmooth=</span><span class="st">&#39;Gauss-Seidel&#39;</span>,<span class="at">v1=</span><span class="dv">2</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">postsmooth=</span><span class="st">&#39;Gauss-Seidel&#39;</span>,<span class="at">v2=</span><span class="dv">2</span>,<span class="at">solver=</span><span class="st">&#39;exact&#39;</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">tol=</span><span class="fl">1e-5</span>,<span class="at">max_iter=</span><span class="fl">1e3</span>,<span class="at">Precond=</span><span class="cn">FALSE</span>){</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  error <span class="ot">&lt;-</span> <span class="fl">1e3</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  iter_time <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  tag <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># precondition method</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(Precond){</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use PCG method</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    result <span class="ot">&lt;-</span> <span class="fu">PCG_MG</span>(Ah[[<span class="dv">1</span>]],b,x0,tol,max_iter,Ah,Qh,presmooth,v1,postsmooth,v2,solver)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    tag <span class="ot">&lt;-</span> result<span class="sc">$</span>tag</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    iter_time <span class="ot">&lt;-</span> result<span class="sc">$</span>iter_time</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    x0 <span class="ot">&lt;-</span> result<span class="sc">$</span>x</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    error <span class="ot">&lt;-</span> result<span class="sc">$</span>error</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># not precondition method</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>{</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span>(error<span class="sc">&gt;</span>tol){</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>      result <span class="ot">&lt;-</span> <span class="fu">Multigrid_iter</span>(Ah,b,Qh,x0,presmooth,v1,postsmooth,v2,solver)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>      x0 <span class="ot">&lt;-</span> result<span class="sc">$</span>x</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>      error <span class="ot">&lt;-</span> result<span class="sc">$</span>error</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>      iter_time <span class="ot">&lt;-</span> iter_time <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>((<span class="fu">norm</span>(<span class="fu">matrix</span>(result<span class="sc">$</span>x <span class="sc">-</span> x0))<span class="sc">/</span><span class="fu">norm</span>(<span class="fu">matrix</span>(result<span class="sc">$</span>x))<span class="sc">&lt;</span>tol) <span class="sc">|</span> (iter_time <span class="sc">&gt;=</span> max_iter)){</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        tag <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># show the result</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">x=</span>x0,<span class="at">iter_time=</span>iter_time,<span class="at">error=</span>error,<span class="at">tag=</span>tag))</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>In addition, the implementation of Multigrid method needs to consider
+the following aspects.</p>
+<ol style="list-style-type: decimal">
+<li><p>Selection of smoother.</p></li>
+<li><p>Selection of coarsening method.</p></li>
+<li><p>Selection of interpolation algorithm.</p></li>
+<li><p>Preconditioned or not.</p></li>
+</ol>
+</div>
+</div>
+<div id="smoother" class="section level2">
+<h2>Smoother</h2>
+<p>The smoother of the Multigrid method mainly considers different
+linear solving iterative methods, and its iterative process can be shown
+as follows.</p>
+<p>Purpose：Solve <span class="math inline">\(Au = f\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(A=M-N\)</span>, where <span class="math inline">\(M\)</span>is a non-singular matrix, <span class="math display">\[Mu = Nu + f,\]</span> <span class="math display">\[u = M^{-1}Nu + M^{-1}f := Su
++  M^{-1}f.\]</span></p></li>
+<li><p>Given the initial value <span class="math inline">\(u^{(0)}\)</span>, perform the following iteration,
+<span class="math display">\[u^{(m+1)}= Su^{(m)}
++  M^{-1}f,m=0,1,2,...,\]</span> Or do weighted iterations, <span class="math display">\[u^*= Su^{(m)} +  M^{-1}f,u^{(m+1)}=\omega
+u^*+(1-\omega)u^{(m)},\]</span> <span class="math display">\[u^{(m+1)}=
+(\omega S+(1-\omega)I)u^{(m)} +  \omega M^{-1}f.\]</span> Definition of
+error <span class="math inline">\(e^{(m)}=u-u^{(m)}\)</span>, residual
+<span class="math inline">\(r^{(m)}=f-Au^{(m)}\)</span>, have the
+following conclusion,</p></li>
+</ol>
+<p><span class="math display">\[
+\begin{aligned}
+S e^{(m)} &amp;=M^{-1} N u-S u^{(m)}=M^{-1} N u-u^{(m+1)}+M^{-1} f \\
+&amp;=M^{-1}(N u+f)-u^{(m+1)}=u-u^{(m+1)}=e^{(m+1)},
+\end{aligned}
+\]</span> <span class="math display">\[Ae^{(m)} = Au-Au^{(m)} =
+f-Au^{(m)} = r^{(m)},\]</span> <span class="math display">\[||e^{(m)}||
+\leq ||S^m||||e^{(0)}||.\]</span> So if <span class="math inline">\(\lim_{m \to \infty}||S^m||=0\)</span>, iterative
+convergence. The iterative method converges if and only if the <span class="math inline">\(\rho(S) = \max_i|\lambda_i(S)|&lt;1\)</span>.</p>
+<p>Meanwhile, Jacobi iteration takes <span class="math inline">\(M=diag(A)\)</span>, and Gauss-Seidel iteration
+takes <span class="math inline">\(M=D+L\)</span>, where <span class="math inline">\(A=D+L+U\)</span> is the diagonal, lower triangle
+and upper triangle part of <span class="math inline">\(A\)</span>
+respectively.</p>
+<p>This R package considers two different smoothing methods,
+<strong>Gauss-Seidel</strong> iteration method and
+<strong>Jacobi</strong> iteration method, and makes the repetition as
+follows.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Smoother <span class="ot">&lt;-</span> <span class="cf">function</span>(Matrix_A, Matrix_b,<span class="at">x0=</span><span class="dv">0</span>,<span class="at">N=</span><span class="dv">100</span>,<span class="at">tol=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">max_iter=</span><span class="fl">1e3</span>,<span class="at">SmoothMethod=</span><span class="st">&#39;Gauss-Seidel&#39;</span>){</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check whether the input meets the requirements</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.array</span>(Matrix_A)){</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">warning</span>(<span class="st">&#39;A is not matrix.&#39;</span>))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.array</span>(Matrix_b)){</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">warning</span>(<span class="st">&#39;b is not array.&#39;</span>))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(N <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">!=</span> <span class="dv">0</span>){</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">warning</span>(<span class="st">&#39;The number of iterations should be an integer.&#39;</span>))</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(<span class="fu">dim</span>(Matrix_A)[<span class="dv">1</span>]<span class="sc">!=</span><span class="fu">dim</span>(Matrix_b)[<span class="dv">1</span>]){</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">warning</span>(<span class="st">&#39;Dimension of A and b is not match.&#39;</span>))</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(<span class="fu">dim</span>(Matrix_A)[<span class="dv">1</span>]<span class="sc">!=</span><span class="fu">dim</span>(Matrix_A)[<span class="dv">2</span>]){</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">warning</span>(<span class="st">&#39;A is not a square matrix.&#39;</span>))</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(<span class="fu">length</span>(x0) <span class="sc">&lt;=</span> <span class="dv">1</span>){</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    x0 <span class="ot">=</span> <span class="fu">array</span>(<span class="fu">rep</span>(<span class="dv">0</span>,<span class="fu">dim</span>(Matrix_A)[<span class="dv">2</span>]))</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.array</span>(x0)){</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">warning</span>(<span class="st">&#39;x0 is not array.&#39;</span>))</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(<span class="fu">dim</span>(Matrix_A)[<span class="dv">2</span>]<span class="sc">!=</span><span class="fu">dim</span>(x0)){</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">warning</span>(<span class="st">&#39;Dimension of A and x0 is not match.&#39;</span>))</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>  tag <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># tag whether converge</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">dim</span>(Matrix_b)[<span class="dv">1</span>];n <span class="ot">&lt;-</span> <span class="fu">dim</span>(x0)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  x_old <span class="ot">&lt;-</span> x0 <span class="sc">-</span> <span class="dv">10</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  x_new <span class="ot">&lt;-</span> x0</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gauss-Seidel</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(SmoothMethod <span class="sc">==</span> <span class="st">&#39;Gauss-Seidel&#39;</span>){</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(tol<span class="sc">&lt;</span><span class="dv">0</span>){</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N){</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>        x_old <span class="ot">&lt;-</span> x_new</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>        x_new[<span class="dv">1</span>] <span class="ot">=</span> (Matrix_b[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">-</span> <span class="fu">sum</span>(Matrix_A[<span class="dv">1</span>,<span class="dv">2</span><span class="sc">:</span>n]<span class="sc">*</span>x_old[<span class="dv">2</span><span class="sc">:</span>n]))<span class="sc">/</span>Matrix_A[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(n<span class="dv">-1</span>)){</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>          x_new[i] <span class="ot">=</span> (Matrix_b[i,<span class="dv">1</span>] <span class="sc">-</span> <span class="fu">sum</span>(Matrix_A[i,<span class="dv">1</span><span class="sc">:</span>(i<span class="dv">-1</span>)]<span class="sc">*</span>x_new[<span class="dv">1</span><span class="sc">:</span>(i<span class="dv">-1</span>)]) </span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>                      <span class="sc">-</span> <span class="fu">sum</span>(Matrix_A[i,(i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n]<span class="sc">*</span>x_old[(i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n]))<span class="sc">/</span>Matrix_A[i,i]</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>        x_new[n] <span class="ot">=</span> (Matrix_b[n,<span class="dv">1</span>] <span class="sc">-</span> <span class="fu">sum</span>(Matrix_A[n,<span class="dv">1</span><span class="sc">:</span>(n<span class="dv">-1</span>)]<span class="sc">*</span>x_new[<span class="dv">1</span><span class="sc">:</span>(n<span class="dv">-1</span>)]))<span class="sc">/</span>Matrix_A[n,n]</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>{</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>      k <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>      <span class="cf">while</span>(<span class="fu">norm</span>(Matrix_A<span class="sc">%*%</span>x_new<span class="sc">-</span>Matrix_b)<span class="sc">/</span><span class="fu">norm</span>(Matrix_b)<span class="sc">&gt;=</span>tol){</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>        x_old <span class="ot">&lt;-</span> x_new</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>        x_new[<span class="dv">1</span>] <span class="ot">=</span> (Matrix_b[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">-</span> <span class="fu">sum</span>(Matrix_A[<span class="dv">1</span>,<span class="dv">2</span><span class="sc">:</span>n]<span class="sc">*</span>x_old[<span class="dv">2</span><span class="sc">:</span>n]))<span class="sc">/</span>Matrix_A[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(n<span class="dv">-1</span>)){</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>          x_new[i] <span class="ot">=</span> (Matrix_b[i,<span class="dv">1</span>] <span class="sc">-</span> <span class="fu">sum</span>(Matrix_A[i,<span class="dv">1</span><span class="sc">:</span>(i<span class="dv">-1</span>)]<span class="sc">*</span>x_new[<span class="dv">1</span><span class="sc">:</span>(i<span class="dv">-1</span>)]) </span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>                      <span class="sc">-</span> <span class="fu">sum</span>(Matrix_A[i,(i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n]<span class="sc">*</span>x_old[(i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n]))<span class="sc">/</span>Matrix_A[i,i]</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>        x_new[n] <span class="ot">=</span> (Matrix_b[n,<span class="dv">1</span>] <span class="sc">-</span> <span class="fu">sum</span>(Matrix_A[n,<span class="dv">1</span><span class="sc">:</span>(n<span class="dv">-1</span>)]<span class="sc">*</span>x_new[<span class="dv">1</span><span class="sc">:</span>(n<span class="dv">-1</span>)]))<span class="sc">/</span>Matrix_A[n,n]</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>        k <span class="ot">&lt;-</span> k<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">norm</span>(<span class="fu">matrix</span>(x_old <span class="sc">-</span> x_new))<span class="sc">/</span><span class="fu">norm</span>(<span class="fu">matrix</span>(x_old))<span class="sc">&lt;</span> tol){</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>          <span class="cf">break</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(k<span class="sc">&gt;=</span>max_iter){</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>          tag <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>          <span class="cf">break</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Jacobi </span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(SmoothMethod <span class="sc">==</span> <span class="st">&#39;Jacobi&#39;</span>){</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(tol<span class="sc">&lt;</span><span class="dv">0</span>){</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N){</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>        x_old <span class="ot">&lt;-</span> x_new</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>        x_new <span class="ot">=</span> <span class="fu">array</span>((Matrix_b[,<span class="dv">1</span>] <span class="sc">-</span> Matrix_A <span class="sc">%*%</span> x_old <span class="sc">+</span> <span class="fu">diag</span>(<span class="fu">diag</span>(Matrix_A))<span class="sc">%*%</span>x_old)<span class="sc">/</span><span class="fu">diag</span>(Matrix_A))</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>{</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>      k <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>      <span class="cf">while</span>(<span class="fu">norm</span>(Matrix_A<span class="sc">%*%</span>x_new<span class="sc">-</span>Matrix_b)<span class="sc">/</span><span class="fu">norm</span>(Matrix_b)<span class="sc">&gt;=</span>tol){</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>        x_old <span class="ot">&lt;-</span> x_new</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>        x_new <span class="ot">=</span> <span class="fu">array</span>((Matrix_b[,<span class="dv">1</span>] <span class="sc">-</span> Matrix_A <span class="sc">%*%</span> x_old <span class="sc">+</span> <span class="fu">diag</span>(<span class="fu">diag</span>(Matrix_A))<span class="sc">%*%</span>x_old)<span class="sc">/</span><span class="fu">diag</span>(Matrix_A))</span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>        k <span class="ot">&lt;-</span> k <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">norm</span>(<span class="fu">matrix</span>(x_old <span class="sc">-</span> x_new))<span class="sc">/</span><span class="fu">norm</span>(<span class="fu">matrix</span>(x_old))<span class="sc">&lt;</span> tol){</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>          <span class="cf">break</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(k<span class="sc">&gt;=</span>max_iter){</span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>          tag <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>          <span class="cf">break</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>        }    </span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  <span class="co"># exact solve</span></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span>(SmoothMethod <span class="sc">==</span> <span class="st">&#39;exact&#39;</span>){</span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>    k <span class="ot">=</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>    tag <span class="ot">=</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>    x_new <span class="ot">=</span> <span class="fu">array</span>(<span class="fu">solve</span>(Matrix_A)<span class="sc">%*%</span>Matrix_b)</span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>    x_old <span class="ot">=</span> x_new</span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>{</span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">warning</span>(<span class="st">&#39;No this smoothing method.&#39;</span>))</span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">x=</span>x_new,<span class="at">iter_time=</span>k,<span class="at">tag=</span>tag,<span class="at">tol =</span> <span class="fu">norm</span>(<span class="fu">matrix</span>(x_old <span class="sc">-</span> x_new))<span class="sc">/</span><span class="fu">norm</span>(<span class="fu">matrix</span>(x_old)),</span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>              <span class="at">error=</span><span class="fu">norm</span>(Matrix_A<span class="sc">%*%</span>x_new<span class="sc">-</span>Matrix_b)<span class="sc">/</span><span class="fu">norm</span>(Matrix_b)))</span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="coarsening-and-interpolation-algorithm" class="section level2">
+<h2>Coarsening and Interpolation Algorithm</h2>
+<p><strong>StatComp22074</strong> considers the coarsening method based
+on projection, considering the idea of node aggregation, and takes the
+sparsity of the current matrix as the standard of the next coarsening
+degree. For the sake of simplicity, the interpolating matrix is defined
+as the transpose of the coarse matrix.</p>
+<p>The projection matrix looks like the following.</p>
+<p><span class="math display">\[Q_{i}^T=\left[\begin{array}{ccc}
+    \frac{1}{\sqrt{n_{1}}} &amp; &amp; \\
+    \vdots &amp; &amp; \\
+    \frac{1}{\sqrt{n_{1}}} &amp; &amp; \\
+    &amp; \ddots &amp; \\
+    &amp; &amp; \frac{1}{\sqrt{n_{\alpha}}} \\
+    &amp; &amp; \vdots\\
+    &amp; &amp; \frac{1}{\sqrt{n_{\alpha}}}
+    \end{array}\right] .\]</span> with</p>
+<p><span class="math display">\[x_i=(x_1^1,...,x_{n_1}^1,x_1^2,...,x_{n_2}^2,...,x_1^\alpha,...,x_{n_\alpha}^\alpha)^T\]</span></p>
+<p><span class="math inline">\(x_1^j,...,x_{n_j}^j\)</span>: Internal
+node of the <span class="math inline">\(j\)</span> partition.</p>
+<p><span class="math inline">\(n_j\)</span>: Number of nodes in the
+<span class="math inline">\(j\)</span> partition.</p>
+<p><span class="math inline">\(\alpha\)</span>: Number of
+partitions.</p>
+<p>and the size of matrix will change from <span class="math inline">\(n\)</span> to <span class="math inline">\(\alpha\)</span> in the next level.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>restriction <span class="ot">&lt;-</span> <span class="cf">function</span>(Matrix_A,<span class="at">n=</span><span class="dv">2</span>,<span class="at">CoarsenType=</span><span class="st">&#39;Projection&#39;</span>){</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  dimC <span class="ot">&lt;-</span> <span class="fu">dim</span>(Matrix_A)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(dimC[<span class="dv">1</span>]<span class="sc">%%</span>n<span class="sc">==</span><span class="dv">0</span>){</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    Q <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="dv">0</span>,dimC[<span class="dv">1</span>]<span class="sc">/</span>n<span class="sc">*</span>dimC[<span class="dv">1</span>]),dimC[<span class="dv">1</span>]<span class="sc">/</span>n,dimC[<span class="dv">1</span>])</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(dimC[<span class="dv">1</span>]<span class="sc">/</span>n)){</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      Q[i,(n<span class="sc">*</span>(i<span class="dv">-1</span>)<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(n<span class="sc">*</span>i)] <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>{</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    q <span class="ot">&lt;-</span> dimC[<span class="dv">1</span>] <span class="sc">%/%</span> n <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    r <span class="ot">&lt;-</span> dimC[<span class="dv">1</span>] <span class="sc">%%</span> n</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    Q <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="dv">0</span>,q<span class="sc">*</span>dimC[<span class="dv">1</span>]),q,dimC[<span class="dv">1</span>])</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(q<span class="dv">-1</span>)){</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      Q[i,(n<span class="sc">*</span>(i<span class="dv">-1</span>)<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(n<span class="sc">*</span>i)] <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    Q[q,(n<span class="sc">*</span>i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>dimC[<span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(r)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(Q)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="precondition" class="section level2">
+<h2>Precondition</h2>
+<p>If precondition is not selected, then AMG will iterate over each
+cycle as the solver until convergence. If AMG is used as the
+preconditioner, StatComp22074 replicates the Preconditioned Conjugate
+Gradient method (PCG) and integrates it into AMG. The algorithm flow of
+PCG is as follows.</p>
+<p><span class="math inline">\(r_0:=b-Ax_0\)</span></p>
+<p><span class="math inline">\(z_0:=M^{-1}r_0\)</span></p>
+<p><span class="math inline">\(p_0:=z_0\)</span></p>
+<p><span class="math inline">\(k:=0\)</span></p>
+<p><strong>repeat</strong></p>
+<p><span class="math inline">\(\qquad\)</span> <span class="math inline">\(\alpha_k:=\frac{r_k^Tz_k}{p_k^TAp_k}\)</span></p>
+<p><span class="math inline">\(\qquad\)</span> <span class="math inline">\(x_{k+1}:=x_k+\alpha_k p_k\)</span></p>
+<p><span class="math inline">\(\qquad\)</span> <span class="math inline">\(r_{k+1}:=r_k-\alpha_k Ap_k\)</span></p>
+<p><span class="math inline">\(\qquad\)</span> if <span class="math inline">\(r_{k+1}\)</span> is sufficiency small then exit
+loop else</p>
+<p><span class="math inline">\(\qquad\)</span> <span class="math inline">\(z_{k+1}:=M^{-1}r_{k+1}\)</span></p>
+<p><span class="math inline">\(\qquad\)</span> <span class="math inline">\(\beta_k:=\frac{z_{k+1}^Tr_{k+1}}{z_{k}^Tr_{k}}\)</span></p>
+<p><span class="math inline">\(\qquad\)</span> <span class="math inline">\(p_{k+1}:=z_{k+1}+\beta_k p_k\)</span></p>
+<p><span class="math inline">\(\qquad\)</span> <span class="math inline">\(k:=k+1\)</span></p>
+<p><strong>end repeat</strong></p>
+<p>with <span class="math inline">\(z_{k}\)</span> is the result of
+<span class="math inline">\(r_k\)</span> after an AMG cycle.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>PCG_MG <span class="ot">&lt;-</span> <span class="cf">function</span>(A,b,x,<span class="at">tol=</span><span class="fl">1e-5</span>,<span class="at">max_iter=</span><span class="fl">1e3</span>,Ah,Qh,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">presmooth=</span><span class="st">&#39;Gauss-Seidel&#39;</span>,<span class="at">v1=</span><span class="dv">2</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">postsmooth=</span><span class="st">&#39;Gauss-Seidel&#39;</span>,<span class="at">v2=</span><span class="dv">2</span>,<span class="at">solver=</span><span class="st">&#39;exact&#39;</span>){</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">length</span>(x) <span class="sc">&lt;=</span> <span class="dv">1</span>){</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">=</span> <span class="fu">array</span>(<span class="fu">rep</span>(<span class="dv">0</span>,<span class="fu">dim</span>(A)[<span class="dv">2</span>]))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  tag <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  r_new <span class="ot">=</span> b <span class="sc">-</span> A <span class="sc">%*%</span> x</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># preconditioner</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  z <span class="ot">=</span> <span class="fu">Multigrid_iter</span>(Ah,r_new,Qh,<span class="at">x0=</span>x,presmooth,v1,postsmooth,v2,solver)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  z_new <span class="ot">=</span> z<span class="sc">$</span>x</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">=</span> z_new</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span>(<span class="dv">1</span>){</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    r_old <span class="ot">=</span> r_new</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    z_old <span class="ot">=</span> z_new</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    alpha <span class="ot">=</span> <span class="fu">t</span>(r_old) <span class="sc">%*%</span> z_old <span class="sc">/</span> (p <span class="sc">%*%</span> A <span class="sc">%*%</span> p)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">=</span> x <span class="sc">+</span> alpha[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">*</span> p</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    r_new <span class="ot">=</span> r_old <span class="sc">-</span> alpha[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">*</span> A <span class="sc">%*%</span> p</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    error <span class="ot">=</span> <span class="fu">norm</span>(r_new)<span class="sc">/</span><span class="fu">norm</span>(b)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># end repeat</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(error<span class="sc">&lt;</span>tol){</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># preconditioner</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    z <span class="ot">=</span> <span class="fu">Multigrid_iter</span>(Ah,r_new,Qh,<span class="at">x0=</span>x,presmooth,v1,postsmooth,v2,solver)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    z_new <span class="ot">=</span> z<span class="sc">$</span>x</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    beta <span class="ot">=</span> <span class="fu">t</span>(r_new) <span class="sc">%*%</span> z_new <span class="sc">/</span> <span class="fu">t</span>(r_old) <span class="sc">%*%</span> z_old</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">=</span> z_old <span class="sc">+</span> beta[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">*</span> p</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    k <span class="ot">=</span> k <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># exceed max iteration time</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">sum</span>((alpha[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">*</span> p)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span>)<span class="sc">&lt;</span>tol <span class="sc">|</span> k <span class="sc">&gt;=</span> max_iter){</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>      tag <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">x=</span>x,<span class="at">error=</span>error,<span class="at">iter_time=</span>k,<span class="at">tag=</span>tag))</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="gauss-seidel.cpp" class="section level2">
+<h2>Gauss-Seidel.cpp</h2>
+<p>In addition, StatComp22074 also used Rcpp to complete the repetition
+of Gauss-Seidel iteration method for simulation comparison. The process
+of Gauss-Seidel iteration was described in <strong>the Smoother</strong>
+section above.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>NumericVector Gauss_Seidel<span class="op">(</span>NumericMatrix A<span class="op">,</span>NumericVector b<span class="op">,</span>NumericVector x0<span class="op">,</span><span class="dt">int</span> N<span class="op">=</span><span class="dv">10</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n <span class="op">=</span> A<span class="op">.</span>ncol<span class="op">();</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  NumericVector x_old <span class="op">=</span> x0 <span class="op">-</span> <span class="dv">10</span><span class="op">;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  NumericVector x_new <span class="op">=</span> x0<span class="op">;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i<span class="op">=</span><span class="dv">1</span><span class="op">;</span>i<span class="op">&lt;</span>N<span class="op">;</span>i<span class="op">++){</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    x_old <span class="op">=</span> x_new<span class="op">;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> j<span class="op">=</span><span class="dv">0</span><span class="op">;</span> j<span class="op">&lt;</span>n<span class="op">;</span> j<span class="op">++)</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">double</span> sum<span class="op">=</span><span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> k<span class="op">=</span><span class="dv">0</span><span class="op">;</span> k<span class="op">&lt;</span>n<span class="op">;</span> k<span class="op">++)</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>      <span class="op">{</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span><span class="op">(</span>j<span class="op">&gt;</span>k<span class="op">)</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>          sum<span class="op">+=(-</span><span class="dv">1</span><span class="op">)*</span>A<span class="op">(</span>j<span class="op">,</span>k<span class="op">)*</span>x_new<span class="op">(</span>k<span class="op">);</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="cf">if</span><span class="op">(</span>j<span class="op">&lt;</span>k<span class="op">)</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>          sum<span class="op">+=(-</span><span class="dv">1</span><span class="op">)*</span>A<span class="op">(</span>j<span class="op">,</span>k<span class="op">)*</span>x_old<span class="op">(</span>k<span class="op">);</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>      x_new<span class="op">[</span>j<span class="op">]=(</span>sum<span class="op">+</span>b<span class="op">(</span>j<span class="op">))/</span>A<span class="op">(</span>j<span class="op">,</span>j<span class="op">);</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> x_new<span class="op">;</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+<div id="simulation" class="section level2">
+<h2>Simulation</h2>
+<p>You can simply generate the data and simulate it in the following
+ways.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Rcpp)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(StatComp22074)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;StatComp22074&#39;</code></pre>
+<pre><code>## The following objects are masked _by_ &#39;.GlobalEnv&#39;:
+## 
+##     Gauss_Seidel, Multigrid_iter, Multigrid_Setup, Multigrid_Solve,
+##     PCG_MG, restriction, Smoother</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;matrix_data_1e3&quot;</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(data)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">dim</span>(A)[<span class="dv">1</span>]</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="fu">rep</span>(<span class="dv">0</span>,n))</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>before <span class="ot">&lt;-</span> <span class="fu">Multigrid_Setup</span>(A,<span class="at">layer =</span> <span class="dv">10</span>,<span class="at">CoarsenType=</span><span class="st">&#39;Projection&#39;</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">InterpType=</span><span class="st">&#39;Projection&#39;</span>,<span class="at">pri =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##   dim_of_A    nnz    dense layer
+## 1     1000 100433 0.100433     0
+## 2      250  50980 0.815680     1</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>start_time1 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>x_notPre <span class="ot">&lt;-</span> <span class="fu">Multigrid_Solve</span>(<span class="at">Ah=</span>before<span class="sc">$</span>Ah,b,<span class="at">Qh=</span>before<span class="sc">$</span>Qh,<span class="at">x0=</span>x0,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">presmooth=</span><span class="st">&#39;Gauss-Seidel&#39;</span>,<span class="at">v1=</span><span class="dv">5</span>,<span class="at">postsmooth=</span><span class="st">&#39;Gauss-Seidel&#39;</span>,<span class="at">v2=</span><span class="dv">5</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">solver=</span><span class="st">&#39;exact&#39;</span>,<span class="at">tol=</span><span class="fl">1e-6</span>,<span class="at">max_iter=</span><span class="fl">1e3</span>,<span class="at">Precond=</span><span class="cn">FALSE</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>end_time1 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>start_time2 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>x_Pre <span class="ot">&lt;-</span> <span class="fu">Multigrid_Solve</span>(<span class="at">Ah=</span>before<span class="sc">$</span>Ah,b,<span class="at">Qh=</span>before<span class="sc">$</span>Qh,<span class="at">x0=</span>x0,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">presmooth=</span><span class="st">&#39;Gauss-Seidel&#39;</span>,<span class="at">v1=</span><span class="dv">5</span>,<span class="at">postsmooth=</span><span class="st">&#39;Gauss-Seidel&#39;</span>,<span class="at">v2=</span><span class="dv">5</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">solver=</span><span class="st">&#39;exact&#39;</span>,<span class="at">tol=</span><span class="fl">1e-6</span>,<span class="at">max_iter=</span><span class="fl">1e3</span>,<span class="at">Precond=</span><span class="cn">TRUE</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>end_time2 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fl">5e2</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>start_time3 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>x_R <span class="ot">&lt;-</span> <span class="fu">Smoother</span>(A,b,x0,<span class="at">tol=</span><span class="fl">1e-10</span>,<span class="at">max_iter=</span>N,<span class="at">SmoothMethod =</span> <span class="st">&#39;Gauss-Seidel&#39;</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>end_time3 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>start_time4 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>x_Cpp <span class="ot">&lt;-</span> <span class="fu">Gauss_Seidel</span>(A,b,x0,N)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>end_time4 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>data_Count <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">method=</span><span class="fu">c</span>(<span class="st">&#39;AMG&#39;</span>,<span class="st">&#39;Precondition AMG&#39;</span>,<span class="st">&#39;Gauss Seidel_R&#39;</span>,<span class="st">&#39;Gauss Seidel_Rcpp&#39;</span>),</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>                         <span class="at">time=</span><span class="fu">c</span>(end_time1<span class="sc">-</span>start_time1,end_time2<span class="sc">-</span>start_time2,end_time3<span class="sc">-</span>start_time3,</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>                                end_time4<span class="sc">-</span>start_time4),</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>                         <span class="at">iter_time =</span> <span class="fu">c</span>(x_notPre<span class="sc">$</span>iter_time,x_Pre<span class="sc">$</span>iter_time,x_R<span class="sc">$</span>iter_time,N),</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>                         <span class="at">error=</span><span class="fu">c</span>(x_notPre<span class="sc">$</span>error,x_Pre<span class="sc">$</span>error,x_R<span class="sc">$</span>error,<span class="fu">norm</span>(b<span class="sc">-</span>A<span class="sc">%*%</span>x_Cpp)<span class="sc">/</span><span class="fu">norm</span>(b)))</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(data_Count)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">method</th>
+<th align="left">time</th>
+<th align="right">iter_time</th>
+<th align="right">error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AMG</td>
+<td align="left">2.890977 secs</td>
+<td align="right">1</td>
+<td align="right">1.1e-06</td>
+</tr>
+<tr class="even">
+<td align="left">Precondition AMG</td>
+<td align="left">3.973494 secs</td>
+<td align="right">2</td>
+<td align="right">1.1e-06</td>
+</tr>
+<tr class="odd">
+<td align="left">Gauss Seidel_R</td>
+<td align="left">116.290158 secs</td>
+<td align="right">500</td>
+<td align="right">4.0e-07</td>
+</tr>
+<tr class="even">
+<td align="left">Gauss Seidel_Rcpp</td>
+<td align="left">24.821061 secs</td>
+<td align="right">500</td>
+<td align="right">4.0e-07</td>
+</tr>
+</tbody>
+</table>
+<p>The results show that the convergence rate of the multi-grid method
+is faster. At the same time, c++ runs faster and converges better.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
